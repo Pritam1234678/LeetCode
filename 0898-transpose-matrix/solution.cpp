@@ -1,20 +1,15 @@
 class Solution {
 public:
-    vector<vector<int>> transpose(vector<vector<int>>& matrix) {
-         int m = matrix.size();
-    int n = matrix[0].size();
-
-    // Initialize the transpose matrix with dimensions swapped
-    vector<vector<int>> result(n, vector<int>(m, 0));
-
-    // Populate the transpose matrix
-    for (int i = 0; i < m; ++i) {
-        for (int j = 0; j < n; ++j) {
-            result[j][i] = matrix[i][j];
-        }
-    }
-
-    return result;
+    vector<vector<int>> transpose(vector<vector<int>>& p) {
         
+        int m= p.size();
+        int n= p[0].size();
+        vector<vector<int>> t(n,vector<int>(m));
+        for(int i=0; i<n;i++){
+            for(int j=0; j<m; j++){
+                t[i][j]=p[j][i];
+            }
+        }
+       return t;
     }
 };
