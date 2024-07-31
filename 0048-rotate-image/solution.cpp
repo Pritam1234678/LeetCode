@@ -1,48 +1,22 @@
 class Solution {
 public:
-    void rotate(vector<vector<int>>& matrix) {
-        int n= matrix.size();
+    void rotate(vector<vector<int>>& arr) {
+        int n =arr.size();
+         for (int i = 0; i < n; ++i) {
+    for (int j = i + 1; j < n; ++j) {
 
-        for(int i=0;i<n; i++) {
+      swap(arr[i][j], arr[j][i]);
+    }
+  }
 
-for(int j=i+1; j<n; j++) {
-
-// swap i,j and j,i
-
-int temp = matrix[i][j];
-
-matrix[i][j] = matrix[j][i];
-
-matrix[j] [i] = temp;}}
-
-
-
-for(int k=0;k<n; k++){
-
-int i = 0;
-
-int j = n-1;
-
-while(i<=j){ // swapping k, i and k,j
-
-int temp = matrix [k] [i];
-
-matrix[k] [i] = matrix[k][j];
-
-matrix[k][j] = temp;
-
-i++;
-
-j--;
-
-}
-
-
-
-}
-
-
-return;
-        
+  for (int i = 0; i < n; i++) {
+    int q = n - 1;
+    int p = 0;
+    while (p <= q) {
+      swap(arr[i][p], arr[i][q]);
+      p++;
+      q--;
+    }
+  }
     }
 };
