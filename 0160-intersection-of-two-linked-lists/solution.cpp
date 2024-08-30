@@ -20,7 +20,8 @@ public:
             for (int i = 0; i < diff; i++) {
                 ta = ta->next;
             }
-        } else {
+        } 
+        else {
             int diff2 = cb - ca;
             for (int i = 0; i < diff2; i++) {
                 tb = tb->next;
