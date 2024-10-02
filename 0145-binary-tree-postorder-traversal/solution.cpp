@@ -9,15 +9,21 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
 class Solution {
 public:
-    vector<int> num={};
+    void display(TreeNode* root, vector<int>& v) // left ORDER DISPLAY
+    {
+        if (root == nullptr)
+            return;
+       
+        display(root->left,v);
+        display(root->right,v);
+         v.push_back(root->val);
+    }
     vector<int> postorderTraversal(TreeNode* root) {
-        if (root==nullptr)
-            return num;
-        postorderTraversal(root->left);
-        postorderTraversal(root->right);
-        num.push_back(root->val);
-        return num;
+        vector<int> v;
+        display(root, v);
+        return v;
     }
 };
