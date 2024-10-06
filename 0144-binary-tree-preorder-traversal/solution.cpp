@@ -1,17 +1,19 @@
 
 class Solution {
 public:
-    void display(TreeNode* root, vector<int>& v) // left ORDER DISPLAY
-    {
-        if (root == nullptr)
-            return;
-        v.push_back(root->val);
-        display(root->left,v);
-        display(root->right,v);
-    }
     vector<int> preorderTraversal(TreeNode* root) {
         vector<int> v;
-        display(root, v);
+        stack<TreeNode*>st;
+        if(root)st.push(root);
+        while(!st.empty()){
+            TreeNode* temp= st.top();
+            st.pop();
+            v.push_back(temp->val);
+            if(temp->right) st.push(temp->right);
+            if(temp->left) st.push(temp->left);
+
+        }
+
         return v;
     }
 };
