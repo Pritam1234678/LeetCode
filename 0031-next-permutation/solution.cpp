@@ -1,21 +1,36 @@
 class Solution {
 public:
-    void nextPermutation(vector<int>& v) {
-        if(v.size()==1) return;
-        if(v.size()==2){
-            swap(v[1], v[0]); return;
+    void nextPermutation(vector<int>& nums) {
+
+          int n = nums.size();
+    int idx = -1;
+    for (int i = n - 2; i >= 0; i--)
+    {
+        if (nums.at(i) < nums.at(i + 1))
+        {
+            idx = i;
+            break;
         }
-        int i=v.size()-2;
-        for(;i>=0;i--){
-            if(v[i]<v[i+1]) break;
+    }
+
+    if (idx == -1)
+    {
+        reverse(nums.begin(), nums.end()); // Fix: Reverse the entire array
+        return;
+    }
+
+    reverse(nums.begin() + idx + 1, nums.end());
+    int j = -1;
+    for (int i = idx + 1; i < n; i++)
+    {
+        if (nums.at(i) > nums.at(idx))
+        {
+            j = i;
+            break;
         }
-        sort(v.begin()+i+1, v.end());
-        if(i==-1) return;
-        for(int j=i+1;j<v.size();j++){
-            if(v[i]<v[j]) {
-                swap(v[i], v[j]);
-                return;
-            }
-        }
+    }
+
+    swap(nums.at(idx), nums.at(j));
+    return; 
     }
 };
