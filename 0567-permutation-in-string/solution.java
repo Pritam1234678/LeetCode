@@ -1,53 +1,49 @@
 class Solution {
-
-    public boolean checkInclusion(String s1, String s2) {
-
-        int n1 = s1.length();
-        int n2 = s2.length();
-
-        if (n1 > n2) {
-            return false;
-        }
-
-        int[] freq1 = new int[26];
-        int[] freq2 = new int[26];
-
-        // s1 aur first window ki frequency
-        for (int i = 0; i < n1; i++) {
-            freq1[s1.charAt(i) - 'a']++;
-            freq2[s2.charAt(i) - 'a']++;
-        }
-
-        // first window check
-        if (match(freq1, freq2)) {
-            return true;
-        }
-
-        // sliding window
-        for (int i = n1; i < n2; i++) {
-
-            // new character add
-            freq2[s2.charAt(i) - 'a']++;
-
-            // old character remove
-            freq2[s2.charAt(i - n1) - 'a']--;
-
-            if (match(freq1, freq2)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private boolean match(int[] freq1, int[] freq2) {
-
-        for (int i = 0; i < 26; i++) {
-            if (freq1[i] != freq2[i]) {
+    private boolean allZero(int[] freq) {
+        for (int x : freq) {
+            if (x != 0) {
                 return false;
             }
         }
-
         return true;
+    }
+
+    public boolean checkInclusion(String s1, String s2) {
+
+        if (s1.length() > s2.length()) {
+            return false;
+        }
+
+        int freq[] = new int[26];
+
+        for (char c : s1.toCharArray()) {
+            freq[c - 'a']++;
+        }
+
+        int i = 0, j = s1.length() - 1;
+
+        for (; i <= j; i++) {
+            freq[s2.charAt(i) - 'a']--;
+        }
+
+        if (allZero(freq))
+            return true;
+
+        i = 1;
+        j = s1.length();
+
+        while (j < s2.length()) {
+
+            freq[s2.charAt(i - 1) - 'a']++;
+            freq[s2.charAt(j) - 'a']--;
+
+            if (allZero(freq))
+                return true;
+
+            i++;
+            j++;
+        }
+
+        return false;
     }
 }
