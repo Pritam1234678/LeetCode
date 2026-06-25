@@ -1,27 +1,38 @@
 class Solution {
-    int maxLen = 0;
-    int lo = 0;
-    public String longestPalindrome(String s) {
-        char[] input = s.toCharArray();
-        if(s.length() < 2) {
-            return s;
+    public String mySubstring(String s, int left, int right) {
+        StringBuilder sb = new StringBuilder();
+
+        while (left <= right) {
+            sb.append(s.charAt(left));
+            left++;
         }
-        
-        for(int i = 0; i<input.length; i++) {
-            expandPalindrome(input, i, i);
-            expandPalindrome(input, i, i+1);
-        }
-        return s.substring(lo, lo+maxLen);
+
+        return sb.toString();
     }
-    
-    public void expandPalindrome(char[] s, int j, int k) {
-        while(j >= 0 && k < s.length && s[j] == s[k]) {
-            j--;
-            k++;
+
+    public String longestPalindrome(String s) {
+        int start = 0;
+        int end = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            int left = i, right = i;
+            while (left >= 0 && s.charAt(left) == ch)
+                left--;
+            while (right < s.length() && s.charAt(right) == ch)
+                right++;
+            while (left >= 0 && right < s.length()) {
+                if (s.charAt(left) != s.charAt(right))
+                    break;
+                left--;
+                right++;
+            }
+            left++;
+            right--;
+            while (end - start < right - left) {
+                end = right;
+                start = left;
+            }
         }
-        if(maxLen < k - j - 1) {
-            maxLen = k - j - 1;
-            lo = j+1;
-        }
+        return mySubstring(s,start, end);
     }
 }
